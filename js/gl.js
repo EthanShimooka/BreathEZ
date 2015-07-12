@@ -54,6 +54,7 @@ window.GL = (function(canvas) {
       this.container.webkitRequestFullscreen();
     }
   }
+  this.canvas.addEventListener("click", this.fullscreen, false);
 
   // VR Orientation controls
   this.setOrientationControls = function(e) {

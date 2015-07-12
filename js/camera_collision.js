@@ -1,7 +1,6 @@
 function RayCamera() {
   this.raycaster = new THREE.Raycaster();
   this.raycaster.setFromCamera(new THREE.Vector2(0, 0), GL.camera);
-  console.log(this.raycaster);
   this.arrow = new THREE.ArrowHelper(
     this.raycaster.ray.direction,
     this.raycaster.ray.origin,
@@ -35,7 +34,6 @@ RayCamera.prototype.checkCollisions = function() {
     // Only set first collision
     this.active_collider   = collisions[0];
     this.active_collision  = true;
-    console.log(this.active_collider);
   } else {
     this.active_collider    = null;
     this.active_collision  = false;
