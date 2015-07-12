@@ -5,6 +5,8 @@ window.GL = (function(canvas) {
   this.renderer = new THREE.WebGLRenderer({ alpha: true });
   this.renderer.setClearColor( 0x53538A, 1);
 
+  this.stereo = new THREE.StereoEffect(this.renderer);
+
   // Render canvas onto page
   this.canvas = this.renderer.domElement;
   this.container = document.getElementById(canvas)
@@ -39,7 +41,7 @@ window.GL = (function(canvas) {
     this.camera.updateProjectionMatrix();
 
     this.renderer.setSize(width, height);
-    // effect.setSize(width, height);
+    this.stereo.setSize(width, height);
   }
   window.addEventListener('resize', resize, false);
 
@@ -81,7 +83,8 @@ window.GL = (function(canvas) {
   };
 
   this.render = function(dt) {
-    this.renderer.render(scene, camera);
+    this.renderer.render(this.scene, this.camera);
+    this.stereo.render(this.scene, this.camera);
   };
 
   this.scene = new THREE.Scene();

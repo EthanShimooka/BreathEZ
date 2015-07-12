@@ -77,7 +77,6 @@ window.now = 0;
   raycam.checkCollisions();
 
   // Render logic
-
   sphere_animate();
 
   GL.update(window.elapsed);
