@@ -1,6 +1,8 @@
 visualObjectLighting();
 visualObjectPointLighting();
 visualObjectGrid();
+visualObjectSkybox();
+
 
 var objects = [];
 objects.push(visualObjectSmokeStack(0,0,160,GL.scene));
