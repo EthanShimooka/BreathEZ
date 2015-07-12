@@ -41,14 +41,13 @@ function visualObjectSmokeStack(x,y,z, scene) {
     this.scene = scene;
 
     var scale = 10; //vertex optimization fornula here
-    var sgeometry = new THREE.CylinderGeometry(2, 6, 40, 52);
+    var sgeometry = new THREE.CylinderGeometry(2, 6, 50, 52);
     var smaterial = new THREE.MeshPhongMaterial({
-        color: 0xCC6699,
+        color: 0x331A00,
         specular: 0xffffff,
-        shininess: 5,
+        shininess: 1,
         shading: THREE.FlatShading
-        //map: texture,
-        //  specularMap: spectexture
+
     });
 
     var smoke = new THREE.Mesh(sgeometry, smaterial);
@@ -66,11 +65,11 @@ function visualObjectBuilding(x,y,z,scene){
     this.z = z;
 
     this.scene = scene;
-    var geometry = new THREE.BoxGeometry( 10, 10, 10 );
+    var geometry = new THREE.BoxGeometry( 15, 10, 13 );
     var smaterial = new THREE.MeshPhongMaterial({
-        color: 0xCC6699,
+        color: 0x754719,
         specular: 0xffffff,
-        shininess: 5,
+        shininess: 1,
         shading: THREE.FlatShading
         //map: texture,
         //  specularMap: spectexture
@@ -128,8 +127,8 @@ function visualObjectLighting() {
 }
 
 function visualObjectPointLighting() {
-    var objlight = new THREE.PointLight(0xffffff, 0.7);
-    objlight.position.set(0, 50, 70);
+    var objlight = new THREE.PointLight(0xffffff, 0.3);
+    objlight.position.set(0, 150, 70);
     GL.scene.add(objlight);
 }
 
