@@ -20,13 +20,47 @@ function visualObjectSphere(radius, x, y, z, scene, colors){
 
     var scale = 10; //vertex optimization fornula here
     var sgeometry = new THREE.SphereGeometry(radius,scale ,scale);
-    var smaterial = new THREE.MeshBasicMaterial({color: 0x0000FF});
+    var smaterial = new THREE.MeshPhongMaterial({color: colors});
 
     this.mesh = new THREE.Mesh(sgeometry,smaterial);
     mesh.position.set(x,y,z);
     GL.scene.add(mesh);
     return this;
 }
+
+
+
+
+//VisualObjectSphereColumn() - takes in array and produces data plume
+// PARAMS:
+//
+//   data : an Array, with position as Year, from [0],being earliest, to .length, being latest
+//   color: Base Color hex value
+//   x: x coord of plume axis
+//   z: z coord of plume axis
+
+function visualObjectSphereColumn(data, color, x,z,scene )
+{
+    this.x = x;
+    this.z = z;
+    this.data = data;
+    this.color = color;
+    this.scene = scene;
+    var y = 20;
+for(i = 0; i < data.length; i++)
+{
+
+    color+=10;
+
+
+    visualObjectSphere(Math.pow(((0.2)*data[i]),2), x, (y+=(3*(data[i]))), z, scene, color);
+
+}
+
+
+}
+
+
 
 //visualObjectSmokeStack()
 //draws chimnay at x, and y
@@ -123,6 +157,7 @@ function visualObjectGrid() {
     return this;
 }
 
+//Ambiant light
 function visualObjectLighting() {
 
     var light = new THREE.HemisphereLight(0x777777, 0x000000, 0.6);
@@ -131,19 +166,15 @@ function visualObjectLighting() {
     return this;
 }
 
+//Adds point Light
+//
 function visualObjectPointLighting() {
+
     var objlight = new THREE.PointLight(0xffffff, 0.3);
     objlight.position.set(0, 150, 70);
     GL.scene.add(objlight);
     return this;
 }
-
-
-
-
-
-
-
 
 
 
