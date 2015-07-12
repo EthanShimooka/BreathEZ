@@ -2,8 +2,8 @@ var canvas_id = "gl_container";
 
 window.GL = (function(canvas) {
   // Set up renderer and canvas
-  this.renderer = new THREE.WebGLRenderer();
-  this.renderer.setClearColor("#000000");
+  this.renderer = new THREE.WebGLRenderer({ alpha: true });
+  this.renderer.setClearColor( 0x53538A, 1);
 
   // Render canvas onto page
   this.canvas = this.renderer.domElement;
