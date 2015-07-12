@@ -125,7 +125,7 @@
       setTimeout(resize, 1);
 
       /////// START CONTENT HERE ////////
-      /*
+
       d3.csv('data.csv', population, function(data){
         xscale.domain([0, data.length - 1]);
         yscale.domain([0, d3.max(data, function(d){ return d.all; })]);
@@ -168,34 +168,6 @@
         });
 
       });
-      */
-      /*
-      var sgeometry = new THREE.SphereGeometry(10, 100, 10);
-      var smaterial = new THREE.MeshBasicMaterial({color: 0x0000FF});
-      var sphere = new THREE.Mesh(sgeometry,smaterial);
-      sphere.position.set(30,30,0);
-      scene.add(sphere);
-       */
-
-      for(var i = 0; i < 100 ; i=i+40) {
-        var sgeometry = new THREE.SphereGeometry(10, 100, 10);
-        var smaterial = new THREE.MeshBasicMaterial({color: 0x0000FF+i});
-        var sphere = new THREE.Mesh(sgeometry,smaterial);
-        sphere.position.set(30+i,30+i,0);
-        scene.add(sphere);
-
-      }
-
-
-      for(var i = 0; i < 100 ; i=i+30) {
-       // var sgeometry = new THREE.SphereGeometry(5, 100, 10);
-       // var smaterial = new THREE.MeshBasicMaterial({color: 0x0330FF+i});
-       // var sphere = new THREE.Mesh(sgeometry,smaterial);
-        //sphere.position.set(30+i,40,10+i);
-       // scene.add(sphere);
-      //visualObjectSphere(i, 30+i,20+i,40+i, scene);
-      }
-
 
       function population(d) {
         d.all = +d.all;
@@ -222,12 +194,7 @@
       srctext.position.set(0 - xOffset, 1, 0);
       scene.add(srctext);
 
-
-
-
-
-
-    } //endof init******************************
+    }
 
 
 
@@ -306,6 +273,12 @@
 
         return textMesh1;
     }
+    var audio = new Audio("Aesthesys - Decipimur Specie Recti.mp3");
+
+audio.addEventListener('canplaythrough', function() {
+    this.loop = true;
+    this.play();
+});
   </script>
   </body>
 </html>
