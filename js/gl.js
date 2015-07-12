@@ -62,13 +62,12 @@ window.GL = (function(canvas) {
     }
 
     this.controls = new THREE.DeviceOrientationControls(this.camera, true);
-    this.controls.connect();
-    this.controls.update();
+    if(this.controls !== undefined) {
+      this.controls.connect();
+      this.controls.update();
 
-    // TODO
-    this.canvas.addEventListener("click", this.fullscreen, false);
-
-    window.removeEventListener("deviceorientation", this.setOrientationControls, true);
+      window.removeEventListener("deviceorientation", this.setOrientationControls, true);
+    }
   }
   window.addEventListener("deviceorientation", this.setOrientationControls, true);
 

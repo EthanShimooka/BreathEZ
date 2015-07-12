@@ -21,16 +21,11 @@ function visualObjectSphere(radius, x, y, z, scene, colors){
     var scale = 10; //vertex optimization fornula here
     var sgeometry = new THREE.SphereGeometry(radius,scale ,scale);
     var smaterial = new THREE.MeshBasicMaterial({color: 0x0000FF});
-    var sphereA = new THREE.Mesh(sgeometry,smaterial);
 
-
-    this.bboxed = THREE.Sphere(THREE.Vector3(x,y,z),radius);
-    this.bboxed_type = "Sphere";
-
-    sphereA.position.set(x,y,z);
-
-    GL.scene.add(sphereA);
-
+    this.mesh = new THREE.Mesh(sgeometry,smaterial);
+    mesh.position.set(x,y,z);
+    GL.scene.add(mesh);
+    return this;
 }
 
 //visualObjectSmokeStack()
@@ -45,8 +40,6 @@ function visualObjectSmokeStack(x,y,z, scene) {
     this.scene = scene;
 
     var sgeometry = new THREE.CylinderGeometry(2, 6, 50, 52);
-    this.bboxed = new THREE.Box3(THREE.Vector3(x,y,z),THREE.Vector3(x+13,y+51,z+13));
-    this.bboxed_type = "Box";
     var smaterial = new THREE.MeshPhongMaterial({
         color: 0x331A00,
         specular: 0xffffff,
@@ -55,10 +48,12 @@ function visualObjectSmokeStack(x,y,z, scene) {
 
     });
 
-    var smoke = new THREE.Mesh(sgeometry, smaterial);
-    smoke.position.set(x, y, z);
+    this.mesh = new THREE.Mesh(sgeometry, smaterial);
+    mesh.position.set(x, y, z);
 
-    GL.scene.add(smoke);
+    GL.scene.add(mesh);
+    GL.scene.add( new THREE.BoundingBoxHelper(mesh, 0xFFFFFF) );
+    return this;
 }
 
 
@@ -79,10 +74,12 @@ function visualObjectBuilding(x,y,z,scene){
         //map: texture,
         //  specularMap: spectexture
     });
-    var cube = new THREE.Mesh( geometry, smaterial );
-    cube.position.set(x+3,y,z);
 
-    GL.scene.add( cube );
+    this.mesh = new THREE.Mesh( geometry, smaterial );
+    mesh.position.set(x+3,y,z);
+
+    GL.scene.add( mesh );
+    return this;
 }
 
 
@@ -123,18 +120,22 @@ function visualObjectGrid() {
     mesh.rotation.x = -Math.PI / 2;
     GL.scene.add(mesh);
 
+    return this;
 }
 
 function visualObjectLighting() {
 
     var light = new THREE.HemisphereLight(0x777777, 0x000000, 0.6);
     GL.scene.add(light);
+
+    return this;
 }
 
 function visualObjectPointLighting() {
     var objlight = new THREE.PointLight(0xffffff, 0.3);
     objlight.position.set(0, 150, 70);
     GL.scene.add(objlight);
+    return this;
 }
 
 

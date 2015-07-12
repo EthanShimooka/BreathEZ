@@ -1,70 +1,51 @@
-function Camera(cam) {
-  this.camera = cam;
-  this.ray = THREE.Ray(
-    new THREE.Vector3(
-      this.camera.position.x,
-      this.camera.position.y,
-      this.camera.position.z
-    ),
-    new THREE.Vector3(0, 0, 0)
+function RayCamera() {
+  this.raycaster = new THREE.Raycaster();
+  this.raycaster.setFromCamera(new THREE.Vector2(0, 0), GL.camera);
+  console.log(this.raycaster);
+  this.arrow = new THREE.ArrowHelper(
+    this.raycaster.ray.direction,
+    this.raycaster.ray.origin,
+    100, 0xFFFFFF
   );
+  GL.scene.add(this.arrow);
   this.colliders = [];
 
   this.active_collision = false;
   this.active_collider  = undefined;
+  return this;
 }
 
-Camera.prototype.setDirection = function() {
-  // Set this.ray to direction of quaternion
-  this.ray.direction =
-    new THREE.Vector3(0,0,0).applyQuaternion(this.camera.quaternion).normalize();
-}
-
-Camera.prototype.addCollider = function(object) {
-  this.colliders.push(object);
+RayCamera.prototype.setDirection = function() {
+  this.raycaster.setFromCamera(new THREE.Vector2(0, 0), GL.camera);
+  this.arrow.setDirection(this.raycaster.ray.direction);
 };
 
-Camera.prototype.delCollider = function(object) {
+RayCamera.prototype.addCollider = function(mesh) {
+  this.colliders.push(mesh);
+};
+
+RayCamera.prototype.delCollider = function(mesh) {
   // Remove mesh from collider list
-  //this.colliders.push(object);
+  //this.colliders.push(mesh);
 };
 
-Camera.prototype.checkCollisions = function() {
-  var collision = null;
-  var collider  = null;
-
-  for(var i = 0; i < this.colliders.length; i++) {
-    // TODO: replace with actual bounding box key
-    if(this.colliders[i].bboxed === undefined) {
-      console.log("Collider does not have a bounding box");
-      continue;
-    } else {
-      // Check if ray is colliding
-      switch(this.colliders[i].bboxed_type) {
-        case "Box":
-          collision = this.ray.intersectBox(this.colliders[i].bboxed);
-          break;
-        case "Sphere":
-          collision = this.ray.intersectSphere(this.colliders[i].bboxed);
-          break;
-      }
-
-      if(collision != null) {
-        // Exit on first collision
-        collider = this.colliders[i];
-        this.active_collider   = collider;
-        this.active_collision  = true;
-        console.log("Collision");
-        break;
-      }
-    }
+RayCamera.prototype.checkCollisions = function() {
+  var collisions = this.raycaster.intersectObjects(this.colliders);
+  if(collisions.length > 0) {
+    // Only set first collision
+    this.active_collider   = collisions[0];
+    this.active_collision  = true;
+    console.log(this.active_collider);
+  } else {
+    this.active_collider    = null;
+    this.active_collision  = false;
   }
 
   if(this.active_collision) {
-    // Camera was already pointing at an object
+    // RayCamera was already pointing at an object
     if(this.active_collider === null) {
       this.active_collider  = null; // Deselect object
       this.active_collision = false;
     }
   }
-}
+};
