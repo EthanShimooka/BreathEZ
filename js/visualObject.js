@@ -192,24 +192,21 @@ function visualObjectGrid() {
 
 }
 
+//Ambiant light
 function visualObjectLighting() {
 
     var light = new THREE.HemisphereLight(0x777777, 0x000000, 0.6);
     GL.scene.add(light);
 }
 
+//Adds point Light
+//
 function visualObjectPointLighting() {
+
     var objlight = new THREE.PointLight(0xffffff, 0.3);
     objlight.position.set(0, 150, 70);
     GL.scene.add(objlight);
 }
-
-
-
-
-
-
-
 
 
 
