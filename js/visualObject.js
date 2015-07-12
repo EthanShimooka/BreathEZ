@@ -88,29 +88,29 @@ function visualObjectBuilding(x,y,z,scene){
 function visualObjectGrid() {
 
     var texture = THREE.ImageUtils.loadTexture(
-        'textures/patterns/yellowchecker.png'
+        'textures/patterns/citytile.png'
     );
     texture.wrapS = THREE.RepeatWrapping;
     texture.wrapT = THREE.RepeatWrapping;
     texture.repeat = new THREE.Vector2(50, 50);
     texture.anisotropy = renderer.getMaxAnisotropy();
 
-    spectexture = THREE.ImageUtils.loadTexture(
-        'textures/patterns/blacklinegrid.png'
+  /* spectexture = THREE.ImageUtils.loadTexture(
+        'textures/patterns/yellowchecker.png'
     );
     spectexture.wrapS = THREE.RepeatWrapping;
     spectexture.wrapT = THREE.RepeatWrapping;
     spectexture.repeat = new THREE.Vector2(50, 50);
     spectexture.anisotropy = renderer.getMaxAnisotropy();
-
+*/
 
     var material = new THREE.MeshPhongMaterial({
         color: 0xffffff,
         specular: 0xffffff,
-        shininess: 5,
+        shininess:0.2,
         shading: THREE.FlatShading,
-        map: texture,
-        specularMap: spectexture
+        map: texture
+
     });
 
     var geometry = new THREE.PlaneGeometry(1000, 1000);
