@@ -20,7 +20,7 @@ function visualObjectSphere(radius, x, y, z, scene, colors){
 
     var scale = 10; //vertex optimization fornula here
     var sgeometry = new THREE.SphereGeometry(radius,scale ,scale);
-    var smaterial = new THREE.MeshBasicMaterial({color: 0x0000FF});
+    var smaterial = new THREE.MeshPhongMaterial({color: colors});
     var sphereA = new THREE.Mesh(sgeometry,smaterial);
 
 
@@ -29,9 +29,76 @@ function visualObjectSphere(radius, x, y, z, scene, colors){
 
     sphereA.position.set(x,y,z);
 
+
+
+
     GL.scene.add(sphereA);
 
 }
+
+
+
+function visualObjectSphere(radius, x, y, z, scene, colors){
+
+    this.x = x;
+    this.y = y;
+    this.z =  z;
+    this.radius = radius;
+    this.scene = scene;
+    this.colors = colors;
+
+    var scale = 10; //vertex optimization fornula here
+    var sgeometry = new THREE.SphereGeometry(radius,scale ,scale);
+    var smaterial = new THREE.MeshPhongMaterial({color: colors});
+    var sphereA = new THREE.Mesh(sgeometry,smaterial);
+
+
+    this.bboxed = THREE.Sphere(THREE.Vector3(x,y,z),radius);
+    this.bboxed_type = "Sphere";
+
+    sphereA.position.set(x,y,z);
+
+
+
+
+    GL.scene.add(sphereA);
+
+}
+
+
+
+
+
+//VisualObjectSphereColumn() - takes in array and produces data plume
+// PARAMS:
+//
+//   data : an Array, with position as Year, from [0],being earliest, to .length, being latest
+//   color: Base Color hex value
+//   x: x coord of plume axis
+//   z: z coord of plume axis
+
+function visualObjectSphereColumn(data, color, x,z,scene )
+{
+    this.x = x;
+    this.z = z;
+    this.data = data;
+    this.color = color;
+    this.scene = scene;
+    var y = 20;
+for(i = 0; i < data.length; i++)
+{
+
+    color+=10;
+
+
+    visualObjectSphere(data[i], x, (y+=(3*(data[i]))), z, scene, color);
+
+}
+
+
+}
+
+
 
 //visualObjectSmokeStack()
 //draws chimnay at x, and y
