@@ -52,7 +52,7 @@
       camera.position.set(0, 15, 10);
       scene.add(camera);
 
-      controls = new THREE.OrbitControls(camera, element);
+      controls = new THREE.OrbitControls(camera, element);      //controls for camera
       controls.rotateUp(Math.PI / 4);
       controls.target.set(
         camera.position.x,
@@ -75,7 +75,7 @@
 
         window.removeEventListener('deviceorientation', setOrientationControls, true);
       }
-      window.addEventListener('deviceorientation', setOrientationControls, true);
+      window.addEventListener('deviceorientation', setOrientationControls, true);   //deviceorientation is name of device control
 
 
       var light = new THREE.HemisphereLight(0x777777, 0x000000, 0.6);
