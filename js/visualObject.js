@@ -13,19 +13,34 @@ function visualObjectSphere(radius, x, y, z, scene, colors){
 
     this.x = x;
     this.y = y;
-    this.z =  z;
-    this.radius = radius;
-    this.scene = scene;
-    this.colors = colors;
+    this.z = z;
+    this.radius   = radius;
+    this.scene    = scene;
+    this.colors   = colors;
 
-    var scale = 10; //vertex optimization fornula here
-    var sgeometry = new THREE.SphereGeometry(radius,scale ,scale);
+    var scale = 20; //vertex optimization fornula here
+    var sgeometry = new THREE.SphereGeometry(  radius,scale ,scale);
+    var ogeometry = new THREE.SphereGeometry( -radius*1.1, scale, scale);
     var smaterial = new THREE.MeshPhongMaterial({color: colors});
+    var omaterial = new THREE.MeshPhongMaterial({color: 0xFFFFFF, opacity: 0.0});
 
-    this.mesh = new THREE.Mesh(sgeometry,smaterial);
-    mesh.position.set(x,y,z);
+    this.mesh  = new THREE.Mesh(sgeometry,smaterial);
+    this.omesh = new THREE.Mesh(ogeometry, omaterial);
+    this.omesh.material.needsUpdate = true;
+     mesh.position.set(x,y,z);
+    omesh.position.set(x,y,z);
+
     GL.scene.add(mesh);
+    GL.scene.add(omesh);
     return this;
+};
+
+visualObjectSphere.prototype.update = function() {
+  if(this.mesh.rselected === true) {
+    this.omesh.material.opacity = 1.0;
+  } else {
+    this.omesh.material.opacity = 0.0;
+  }
 }
 
 
@@ -39,25 +54,27 @@ function visualObjectSphere(radius, x, y, z, scene, colors){
 //   x: x coord of plume axis
 //   z: z coord of plume axis
 
-function visualObjectSphereColumn(data, color, x,z,scene )
-{
-    this.x = x;
-    this.z = z;
-    this.data = data;
-    this.color = color;
-    this.scene = scene;
-    var y = 20;
-for(i = 0; i < data.length; i++)
-{
+function visualObjectSphereColumn(data, color, x,z, scene, raycam ) {
+  this.x = x;
+  this.z = z;
+  this.data = data;
+  this.color = color;
+  this.scene = scene;
+  this.spheres = [];
 
+  var y = 20;
+
+  for(i = 0; i < data.length; i++) {
     color+=10;
+    var s = visualObjectSphere(Math.pow(((0.2)*data[i]),2),
+        x, (y+=(3*(data[i]))), z,
+        scene, color);
+    raycam.addCollider(s.mesh);
+    this.spheres.push(s);
 
+  }
 
-    visualObjectSphere(Math.pow(((0.2)*data[i]),2), x, (y+=(3*(data[i]))), z, scene, color);
-
-}
-
-
+  return this;
 }
 
 
@@ -86,7 +103,6 @@ function visualObjectSmokeStack(x,y,z, scene) {
     mesh.position.set(x, y, z);
 
     GL.scene.add(mesh);
-    GL.scene.add( new THREE.BoundingBoxHelper(mesh, 0xFFFFFF) );
     return this;
 }
 
