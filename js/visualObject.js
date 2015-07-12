@@ -177,4 +177,38 @@ function visualObjectPointLighting() {
 }
 
 
+function visualObjectSkybox	() {   // prepare ShaderMaterial
 
+
+    var texture = THREE.ImageUtils.loadTexture(
+        'textures/patterns/sky2.jpg'
+    );
+    texture.wrapS = THREE.RepeatWrapping;
+    texture.wrapT = THREE.RepeatWrapping;
+    texture.mapping =  THREE.SphericalRefractionMapping;
+
+        texture.wrapping = THREE.RepeatWrapping;
+
+
+    var material = new THREE.MeshPhongMaterial({
+        colors: 0xffffff,
+        specular: 0xffff00,
+        shininess:0.3,
+        shading: THREE.SmoothShading,
+        map: texture,
+        side: THREE.BackSide,
+        opacity: 0.3,
+        blending: THREE.NormalBlending
+
+    });
+
+
+    var skyGeo = new THREE.SphereGeometry( 1000, 75, 75 );
+    var sky = new THREE.Mesh( skyGeo, material );
+    sky.overdraw=true;
+    GL.scene.add( sky );
+
+
+
+
+}
