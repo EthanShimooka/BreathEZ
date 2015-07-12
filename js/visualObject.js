@@ -91,7 +91,7 @@ for(i = 0; i < data.length; i++)
     color+=10;
 
 
-    visualObjectSphere(data[i], x, (y+=(3*(data[i]))), z, scene, color);
+    visualObjectSphere(Math.pow(((0.2)*data[i]),2), x, (y+=(3*(data[i]))), z, scene, color);
 
 }
 
