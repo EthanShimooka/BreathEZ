@@ -17,7 +17,7 @@ window.GL = (function(canvas) {
     0.1,  // Near
     10000 // Far
   );
-  this.camera.position.set(0, 40, 0);
+  this.camera.position.set(0, 20, 0);
 
   // Set up orbit controls
   this.controls = new THREE.OrbitControls(this.camera, this.canvas);
