@@ -23,6 +23,10 @@ function visualObjectSphere(radius, x, y, z, scene, colors){
     var smaterial = new THREE.MeshBasicMaterial({color: 0x0000FF});
     var sphereA = new THREE.Mesh(sgeometry,smaterial);
 
+
+    this.bboxed = THREE.Sphere(THREE.Vector3(x,y,z),radius);
+    this.bboxed_type = "Sphere";
+
     sphereA.position.set(x,y,z);
 
     GL.scene.add(sphereA);
@@ -40,8 +44,9 @@ function visualObjectSmokeStack(x,y,z, scene) {
 
     this.scene = scene;
 
-    var scale = 10; //vertex optimization fornula here
     var sgeometry = new THREE.CylinderGeometry(2, 6, 50, 52);
+    this.bboxed = new THREE.Box3(THREE.Vector3(x,y,z),THREE.Vector3(x+13,y+51,z+13));
+    this.bboxed_type = "Box";
     var smaterial = new THREE.MeshPhongMaterial({
         color: 0x331A00,
         specular: 0xffffff,
