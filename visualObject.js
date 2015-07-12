@@ -9,14 +9,29 @@
 // Takes a radius and a set of coordinates, converts to a Three.Vector3 Object, and maps it, with radius to a
 // THREE.Sphere object. Returns THREE.Sphere Object.
 
-function visualObjectSphere(radius, x, y, z){
+function visualObjectSphere(radius, x, y, z, scene){
 
-    var center = new THREE.Vector3(x,y, z);
+    this.x = x;
+    this.y = y;
+    this.z =  z;
+    this.radius = radius;
+    this.scene = scene;
 
-    var sphereA = new THREE.Sphere(center, radius);
-    return sphereA;
+    var scale = 10; //vertex optimization fornula here
+    var sgeometry = new THREE.SphereGeometry(radius,scale ,scale);
+    var smaterial = new THREE.MeshBasicMaterial({color: 0x0000FF});
+    var sphereA = new THREE.Mesh(sgeometry,smaterial);
 
+    sphereA.position.set(x,y,z);
+
+    scene.add(sphere);
+
+    return this;
 }
+
+
+
+
 
 
 
