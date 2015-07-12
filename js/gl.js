@@ -2,8 +2,8 @@ var canvas_id = "gl_container";
 
 window.GL = (function(canvas) {
   // Set up renderer and canvas
-  this.renderer = new THREE.WebGLRenderer();
-  this.renderer.setClearColor("#000000");
+  this.renderer = new THREE.WebGLRenderer({ alpha: true });
+  this.renderer.setClearColor( 0x53538A, 1);
 
   // Render canvas onto page
   this.canvas = this.renderer.domElement;
@@ -17,7 +17,7 @@ window.GL = (function(canvas) {
     0.1,  // Near
     10000 // Far
   );
-  this.camera.position.set(0, 0, 0);
+  this.camera.position.set(0, 20, 0);
 
   // Set up orbit controls
   this.controls = new THREE.OrbitControls(this.camera, this.canvas);
