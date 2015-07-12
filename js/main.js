@@ -3,14 +3,14 @@ visualObjectLighting();
 visualObjectPointLighting();
 visualObjectGrid();
 
-visualObjectSmokeStack(0,0,180,GL.scene);
-visualObjectSmokeStack(0,0,-180,GL.scene);
-visualObjectSmokeStack(-180,0,0,GL.scene);
-visualObjectSmokeStack(180,0,0,GL.scene);
-visualObjectBuilding(0,0,180,GL.scene);
-visualObjectBuilding(0,0,-180,GL.scene);
-visualObjectBuilding(-180,0,0,GL.scene);
-visualObjectBuilding(180,0,0,GL.scene);
+visualObjectSmokeStack(0,0,80,GL.scene);
+visualObjectSmokeStack(0,0,-80,GL.scene);
+visualObjectSmokeStack(-80,0,0,GL.scene);
+visualObjectSmokeStack(80,0,0,GL.scene);
+visualObjectBuilding(0,0,80,GL.scene);
+visualObjectBuilding(0,0,-80,GL.scene);
+visualObjectBuilding(-80,0,0,GL.scene);
+visualObjectBuilding(80,0,0,GL.scene);
 
 /*
 d3.csv("airdata.csv", function(d) {
